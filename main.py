@@ -20,21 +20,21 @@ while True: # boucle infinie
     graphe.afficher_matrice()
 
     # # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
-    # if est_graphe_ordonnancement(matrice):  #TODO: fonction à créer
+    # if est_graphe_ordonnancement(matrice):  #TODO: fonction à créer - Cédric
     #     # calculer les rangs des sommets et les afficher
-    #     rangs = calculer_rangs(matrice)  #TODO: fonction à créer
+    #     rangs = calculer_rangs(matrice)  #TODO: fonction à créer - Arthur
     #     afficher_rangs(rangs)  #TODO: fonction à créer
         
     #     # calculer les calendriers au plus tôt et au plus tard et les afficher
-    #     au_plus_tot, au_plus_tard = calculer_calendriers(matrice)  #TODO: fonction à créer
+    #     au_plus_tot, au_plus_tard = calculer_calendriers(matrice)  #TODO: fonction à créer - Anas
     #     afficher_calendriers(au_plus_tot, au_plus_tard)  #TODO: fonction à créer
         
     #     # calculer les marges et les afficher
-    #     marges = calculer_marges(au_plus_tot, au_plus_tard)  #TODO: fonction à créer
+    #     marges = calculer_marges(au_plus_tot, au_plus_tard)  #TODO: fonction à créer - maximilien
     #     afficher_marges(marges)  #TODO: fonction à créer
         
     #     # calculer le(s) chemin(s) critique(s) et les afficher
-    #     chemins_critiques = trouver_chemins_critiques(marges)  #TODO: fonction à créer
+    #     chemins_critiques = trouver_chemins_critiques(marges)  #TODO: fonction à créer - Maëlis
     #     afficher_chemins_critiques(chemins_critiques)  #TODO: fonction à créer
         
     # else:  # si les propriétés ne sont pas vérifiées
