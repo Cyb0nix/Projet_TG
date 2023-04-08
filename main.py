@@ -11,7 +11,7 @@ while True: # boucle infinie
 
     # lire le fichier et stocker les contraintes en mémoire
     contraintes = []
-    with open("./Tables/"+nom_fichier, 'r') as f:
+    with open("./Tables/table "+nom_fichier+".txt", 'r') as f:
         for ligne in f:
             contraintes.append(ligne.strip())
 
@@ -22,8 +22,8 @@ while True: # boucle infinie
     # # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
     # if graphe.est_graphe_ordonnancement(): #TODO: fonction à créer - Cédric
     #     # calculer les rangs des sommets et les afficher
-    #     graphe.calculer_rangs()  #TODO: fonction à créer - Arthur
-    #     graphe.afficher_rangs(rangs)  #TODO: fonction à créer
+    #     graphe.calculer_rangs()  #Arthur
+    #     graphe.afficher_rangs(rangs)
         
     #     # calculer les calendriers au plus tôt et au plus tard et les afficher
     #     graphe.calculer_calendriers()  #TODO: fonction à créer - Anas

@@ -3,8 +3,10 @@ class Graphe:
         def __init__(self, contraintes):
             self.N = len(contraintes)
             self.duree = {}
+            self.rangs = {}
             self.matrice = self.creer_matrice(contraintes)
     
+        # Créer la matrice des valeurs à partir des contraintes
         def creer_matrice(self, contraintes):
             # Créer une matrice carrée de taille N+2 pour représenter le graphe,
             # en ajoutant les deux sommets fictifs a et w
@@ -40,6 +42,7 @@ class Graphe:
                     print(" " + str(i) + "  ", end="")
                 else:
                     print(str(i) + "  ", end="")
+            
             print("\n", end='')
             for i in range(len(matrice)):
                 if i < 10:
@@ -119,3 +122,30 @@ class Graphe:
                         return True
             return False
 
+        # Calculer les rangs de chaque tâche
+        def calculer_rangs(self):
+            cptRang = 0
+
+            for j in range(self.N + 1): # Pour chaque colonne
+                for i in range(self.N + 1): # Pour chaque ligne
+                    if self.matrice[i][j] != '*': 
+                        cptRang += 1       
+                self.rangs[j] = cptRang # On ajoute le rang de la tâche j
+                cptRang = 0
+            return self.rangs
+
+        # Affiche les rangs de chaque tâche
+        def afficher_rangs(self):
+            print("\nEtat  | ", end="")
+
+            for j in range(self.N + 1): # print les taches
+                print(str(j) + " | ", end="")
+
+            print("\nRang  | ", end="")
+
+            for j in range(self.N + 1): # print les rangs
+                if j >= 10:
+                    print(" " + str(self.rangs[j]) + " | ", end="")
+                else:
+                    print(str(self.rangs[j]) + " | ", end="")
+            print("\n")
