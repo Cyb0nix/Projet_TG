@@ -15,12 +15,12 @@ while True: # boucle infinie
         for ligne in f:
             contraintes.append(ligne.strip())
 
-    # créer la matrice correspondant au graphe et l'afficher
+    # créer la matrice correspondant au graphe et l'afficheroui
     graphe = Graphe(contraintes)
-    graphe.afficher_matrice()
+    graphe.afficher_matrice(graphe.matrice)
 
     # # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
-    # if graphe.est_graphe_ordonnancement():  #TODO: fonction à créer - Cédric
+    # if graphe.est_graphe_ordonnancement(): #TODO: fonction à créer - Cédric
     #     # calculer les rangs des sommets et les afficher
     #     graphe.calculer_rangs()  #TODO: fonction à créer - Arthur
     #     graphe.afficher_rangs(rangs)  #TODO: fonction à créer
@@ -30,14 +30,14 @@ while True: # boucle infinie
     #     graphe.afficher_calendriers()  #TODO: fonction à créer
         
     #     # calculer les marges et les afficher
-    #     graphe.calculer_marges()  #TODO: fonction à créer - maximilien
+    #     graphe.calculer_marges()  #TODO: fonction à créer - Maximilien
     #     graphe.afficher_marges()  #TODO: fonction à créer
         
     #     # calculer le(s) chemin(s) critique(s) et les afficher
     #     graphe.trouver_chemins_critiques()  #TODO: fonction à créer - Maëlis
     #     graphe.afficher_chemins_critiques()  #TODO: fonction à créer
         
-    # else:  # si les propriétés ne sont pas vérifiées
+    #else:  # si les propriétés ne sont pas vérifiées
     #     # proposer à l'utilisateur de changer de tableau de contraintes
     #     print("Le graphe ne vérifie pas les propriétés pour un graphe d'ordonnancement. Veuillez choisir un autre tableau de contraintes.")
 
