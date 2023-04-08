@@ -6,6 +6,7 @@ class Graphe:
             self.rangs = {}
             self.matrice = self.creer_matrice(contraintes)
     
+        # Créer la matrice des valeurs à partir des contraintes
         def creer_matrice(self, contraintes):
             # Créer une matrice carrée de taille N+2 pour représenter le graphe,
             # en ajoutant les deux sommets fictifs a et w
@@ -33,6 +34,7 @@ class Graphe:
     
             return matrice
     
+        # Afficher la matrice des valeurs
         def afficher_matrice(self):
             print("Matrice des valeurs")
             print("    ", end="")
@@ -58,9 +60,10 @@ class Graphe:
                         print("  " + str(self.matrice[i][j]) + " ", end="")
                 print()
 
+        # Calculer les rangs de chaque tâche
         def calculer_rangs(self):
             cptRang = 0
-            
+
             for j in range(self.N + 1): # Pour chaque colonne
                 for i in range(self.N + 1): # Pour chaque ligne
                     if self.matrice[i][j] != '*': 
@@ -69,6 +72,7 @@ class Graphe:
                 cptRang = 0
             return self.rangs
 
+        # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
             print("\nEtat  | ", end="")
 
