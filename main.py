@@ -18,12 +18,12 @@ while True: # boucle infinie
     # créer la matrice correspondant au graphe et l'afficher
     graphe = Graphe(contraintes)
     graphe.afficher_matrice()
-
+    
     # # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
     # if graphe.est_graphe_ordonnancement():  #TODO: fonction à créer - Cédric
     #     # calculer les rangs des sommets et les afficher
-    #     graphe.calculer_rangs()  #TODO: fonction à créer - Arthur
-    #     graphe.afficher_rangs(rangs)  #TODO: fonction à créer
+    #     graphe.calculer_rangs()  #Arthur
+    #     graphe.afficher_rangs(rangs)
         
     #     # calculer les calendriers au plus tôt et au plus tard et les afficher
     #     graphe.calculer_calendriers()  #TODO: fonction à créer - Anas
