@@ -132,8 +132,8 @@ class Graphe:
         def calculer_rangs(self):
             cptRang = 0
 
-            for j in range(self.N + 1): # Pour chaque colonne
-                for i in range(self.N + 1): # Pour chaque ligne
+            for j in range(self.N + 2): # Pour chaque colonne
+                for i in range(self.N + 2): # Pour chaque ligne
                     if self.matrice[i][j] != '*': 
                         cptRang += 1       
                 self.rangs[j] = cptRang # On ajoute le rang de la tâche j
@@ -144,12 +144,12 @@ class Graphe:
         def afficher_rangs(self):
             print("\nEtat  | ", end="")
 
-            for j in range(self.N + 1): # print les taches
+            for j in range(self.N + 2): # print les taches
                 print(str(j) + " | ", end="")
 
             print("\nRang  | ", end="")
 
-            for j in range(self.N + 1): # print les rangs
+            for j in range(self.N + 2): # print les rangs
                 if j >= 10:
                     print(" " + str(self.rangs[j]) + " | ", end="")
                 else:
