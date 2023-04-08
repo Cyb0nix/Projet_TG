@@ -9,7 +9,6 @@ class Graphe:
             # Créer une matrice carrée de taille N+2 pour représenter le graphe,
             # en ajoutant les deux sommets fictifs a et w
             self.N = len(contraintes)
-            print(self.N)
             matrice = [["*" for j in range(self.N+2)] for i in range(self.N+2)]
     
             # Remplir la matrice avec les valeurs correspondantes
@@ -25,7 +24,6 @@ class Graphe:
                 tache = int(tache_info[0])
                 if len(tache_info) > 2:
                     contraintes = list(map(int, tache_info[2:]))
-                    print(contraintes)
                 if contraintes == []:
                     matrice[0][tache] = 0
                 else:
