@@ -11,7 +11,7 @@ while True: # boucle infinie
 
     # lire le fichier et stocker les contraintes en mémoire
     contraintes = []
-    with open(nom_fichier, 'r') as f:
+    with open("./Tables/"+nom_fichier, 'r') as f:
         for ligne in f:
             contraintes.append(ligne.strip())
 
