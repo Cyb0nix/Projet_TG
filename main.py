@@ -20,10 +20,10 @@ while True: # boucle infinie
     graphe.afficher_matrice(graphe.matrice)
 
     # # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
-    # if graphe.est_graphe_ordonnancement(): #TODO: fonction à créer - Cédric
-    #     # calculer les rangs des sommets et les afficher
-    #     graphe.calculer_rangs()  #Arthur
-    #     graphe.afficher_rangs(rangs)
+    if graphe.est_graphe_ordonnancement(): #TODO: fonction à créer - Cédric
+        # calculer les rangs des sommets et les afficher
+        graphe.calculer_rangs()  #Arthur
+        graphe.afficher_rangs()
         
     #     # calculer les calendriers au plus tôt et au plus tard et les afficher
     #     graphe.calculer_calendriers()  #TODO: fonction à créer - Anas
@@ -37,8 +37,8 @@ while True: # boucle infinie
     #     graphe.trouver_chemins_critiques()  #TODO: fonction à créer - Maëlis
     #     graphe.afficher_chemins_critiques()  #TODO: fonction à créer
         
-    #else:  # si les propriétés ne sont pas vérifiées
-    #     # proposer à l'utilisateur de changer de tableau de contraintes
-    #     print("Le graphe ne vérifie pas les propriétés pour un graphe d'ordonnancement. Veuillez choisir un autre tableau de contraintes.")
+    else:  # si les propriétés ne sont pas vérifiées
+        # proposer à l'utilisateur de changer de tableau de contraintes
+         print("Le graphe ne vérifie pas les propriétés pour un graphe d'ordonnancement. Veuillez choisir un autre tableau de contraintes.")
 
 

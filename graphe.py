@@ -1,3 +1,4 @@
+import copy
 class Graphe:
     
         def __init__(self, contraintes):
@@ -10,8 +11,9 @@ class Graphe:
         def creer_matrice(self, contraintes):
             # Créer une matrice carrée de taille N+2 pour représenter le graphe,
             # en ajoutant les deux sommets fictifs a et w
-            self.N = len(contraintes)
+         
             matrice = [["*" for j in range(self.N+2)] for i in range(self.N+2)]
+ 
     
             # Remplir la matrice avec les valeurs correspondantes
             for ligne in contraintes:
@@ -59,10 +61,13 @@ class Graphe:
 
         def est_graphe_ordonnancement(self):
             # Vérifier que le graphe ne contient pas de circuit
+            
+    
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
                 return False
-    
+            
+            
             # Vérifier que le graphe ne contient pas d'arcs à valeur négative
             if self.contient_arcs_negatifs():
                 print("Le graphe contient des arcs à valeur négative.")
@@ -73,8 +78,8 @@ class Graphe:
         #Détection de circuit avec la méthide de suppression des sommets sans prédécesseurs
         def contient_circuit(self):
             # Créer une copie de la matrice
-            matrice_copie = self.matrice.copy()
-    
+            matrice_copie = copy.deepcopy(self.matrice)
+           
             # Tant qu'il reste des sommets dans la matrice
             while len(matrice_copie) > 0:
                 # Trouver le premier sommet sans prédécesseur
@@ -87,34 +92,35 @@ class Graphe:
     
                 # Supprimer le sommet de la matrice
                 matrice_copie = self.supprimer_sommet(matrice_copie, sommet)
-    
+
             return False
         
-        def trouver_sommet_sans_predecesseur(self, matrice):
-            for i in range(len(matrice)):
-                for j in range(len(matrice)):
+        def trouver_sommet_sans_predecesseur(self, matrice_copie):
+            for i in range(len(matrice_copie)):
+                for j in range(len(matrice_copie)):
                     # Si le sommet a un prédécesseur, passer au sommet suivant
-                    if matrice[j][i] != "*":
+                    if matrice_copie[j][i] != "*":
                         break
                     else:
                         # Si le sommet n'a pas de prédécesseur, le retourner
-                        if j == len(matrice) - 1:
+                        if j == len(matrice_copie) - 1:
                             return i
             return None
         
-        def supprimer_sommet(self, matrice, sommet):
+        def supprimer_sommet(self, matrice_copie, sommet):
 
-            print("Suppresion du sommet :",(len(self.matrice)-len(matrice)))
+            print("Suppresion du sommet :",(len(self.matrice)-len(matrice_copie)))
             # Supprimer la ligne du sommet
-            matrice.pop(sommet)
+            matrice_copie.pop(sommet)
             
             # Supprimer la colonne du sommet
-            for i in range(len(matrice)):
-                matrice[i].pop(sommet)
-            return matrice
+            for i in range(len(matrice_copie)):
+                matrice_copie[i].pop(sommet)
+            return matrice_copie
         
             
         def contient_arcs_negatifs(self):
+            
             # Vérifier que chaque arc a une valeur positive
             for i in range(len(self.matrice)):
                 for j in range(len(self.matrice)):
