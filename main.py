@@ -25,9 +25,9 @@ while True: # boucle infinie
         graphe.calculer_rangs()  #Arthur
         graphe.afficher_rangs()
         
-        # # calculer les calendriers au plus tôt et au plus tard et les afficher
-        graphe.calculer_calendriers()  #TODO: fonction à créer - Anas
-        graphe.afficher_calendriers()  #TODO: fonction à créer
+        # # # calculer les calendriers au plus tôt et au plus tard et les afficher
+        # graphe.calculer_calendriers()  #TODO: fonction à créer - Anas
+        # graphe.afficher_calendriers()  #TODO: fonction à créer
         
         # # calculer les marges et les afficher
         # graphe.calculer_marges()  #TODO: fonction à créer - Maximilien
