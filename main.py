@@ -7,7 +7,7 @@ while True: # boucle infinie
         break  # sortir de la boucle
 
     # sinon, demander à l'utilisateur de choisir un tableau de contraintes
-    nom_fichier = input("Choisissez le nom du fichier contenant les contraintes à traiter : ")
+    nom_fichier = input("Choisir le numéro du tableau de contraintes à traiter : ")
 
     # lire le fichier et stocker les contraintes en mémoire
     contraintes = []
