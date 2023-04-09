@@ -34,8 +34,8 @@ while True: # boucle infinie
         graphe.afficher_marge()
         
         # # calculer le(s) chemin(s) critique(s) et les afficher
-        # graphe.trouver_chemins_critiques()  #TODO: fonction à créer - Maëlis
-        # graphe.afficher_chemins_critiques()  #TODO: fonction à créer
+        graphe.trouver_chemins_critiques()
+        graphe.afficher_chemins_critiques()
         
     else:  # si les propriétés ne sont pas vérifiées
         # proposer à l'utilisateur de changer de tableau de contraintes

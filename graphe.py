@@ -10,6 +10,7 @@ class Graphe:
             self.dates_au_plus_tot = [0 for i in range(self.N+2)]
             self.dates_au_plus_tard = [0 for i in range(self.N+2)]
             self.marges = [0 for i in range(self.N + 2)]
+            self.Chemin_critique = []
 
 
         # Créer la matrice des valeurs à partir des contraintes
@@ -259,7 +260,7 @@ class Graphe:
                     print(str(self.dates_au_plus_tard[j]) + "  | ", end="")
             print()
 
-        def marge(self):
+        def calcul_marge(self):
             # Calculer les marges
             for i in range(self.N + 1):
                 self.marges[i] = self.dates_au_plus_tard[i] - self.dates_au_plus_tot[i]
@@ -275,7 +276,18 @@ class Graphe:
                     print(str(self.marges[j]) + "  | ", end="")
             print("\n")
 
+        
+        def trouver_chemins_critiques(self):
+            # Calcul des chemins critique
+            for i in range(len(self.marges)):
+                if self.marges[i] == 0:
+                    self.Chemin_critique.append(i)
 
-        def calcul_marge(self):
-            # Calculer les calendriers
-            self.marge()
+        def afficher_chemins_critiques(self):
+            print("Le(s) chemin(s) critique(s) : ")
+
+            for i in range(len(self.Chemin_critique)-1):
+                print(str(self.Chemin_critique[i]) + "(" + str(self.duree[self.Chemin_critique[i]]) + ") --> ", end="")
+            
+            print(str(self.Chemin_critique[len(self.Chemin_critique)-1]), end="\n")
+
