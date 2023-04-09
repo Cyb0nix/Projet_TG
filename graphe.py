@@ -74,8 +74,6 @@ class Graphe:
 
         def est_graphe_ordonnancement(self):
             # Vérifier que le graphe ne contient pas de circuit
-            
-    
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
                 return False
@@ -144,37 +142,27 @@ class Graphe:
 
         # Calculer les rangs de chaque tâche
         def calculer_rangs(self):
-            # Créer une copie de la matrice
-            matrice_copie = copy.deepcopy(self.matrice)
-            rangs = [0] * len(matrice_copie)
-            rang = 0
+            # Sommets fictifs a et w
+            self.rangs[0] = 0
+            max_rang = 0
 
-            # Tant qu'il reste des sommets dans la matrice
-            while len(matrice_copie) > 0:
-                # Trouver le premier sommet sans prédécesseur
-                sommet = self.trouver_sommet_sans_predecesseur(matrice_copie)
+            # Calculer les rangs des sommets
+            for j in range(1, self.N+2):
+                for i in range(self.N+2): 
+                    if self.matrice[i][j] != "*":
+                        # Trouver le rang maximum des prédécesseurs du sommet i 
+                        max_rang = max(max_rang, self.rangs[i] + 1)
+                self.rangs[j] = max_rang
 
-                # Si aucun sommet n'a été trouvé, le graphe contient un circuit
-                if sommet == None:
-                    print("il n'y a plus de sommets sans predecesseur")
-                    return True
-
-                # Supprimer le sommet de la matrice
-                matrice_copie = self.supprimer_sommet(matrice_copie, sommet)
-                rangs[sommet] = rang
-                rang += 1
-
-            self.rangs = rangs
-            
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
-            print("\nEtat  | ", end="")
+            print("\nSommet | ", end="")
 
             for j in range(self.N + 2): # print les taches
                 print(str(j) + " | ", end="")
 
-            print("\nRang  | ", end="")
+            print("\nRang   | ", end="")
 
             for j in range(self.N + 2): # print les rangs
                 if j >= 10:
