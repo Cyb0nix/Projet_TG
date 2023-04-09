@@ -261,6 +261,7 @@ class Graphe:
             print()
 
         def calcul_marge(self):
+        def calcul_marge(self):
             # Calculer les marges
             for i in range(self.N + 1):
                 self.marges[i] = self.dates_au_plus_tard[i] - self.dates_au_plus_tot[i]
@@ -291,3 +292,4 @@ class Graphe:
             
             print(str(self.Chemin_critique[len(self.Chemin_critique)-1]), end="\n")
 
+       
