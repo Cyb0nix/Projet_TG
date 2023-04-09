@@ -259,7 +259,7 @@ class Graphe:
                     print(str(self.dates_au_plus_tard[j]) + "  | ", end="")
             print()
 
-        def marge(self):
+        def calcul_marge(self):
             # Calculer les marges
             for i in range(self.N + 1):
                 self.marges[i] = self.dates_au_plus_tard[i] - self.dates_au_plus_tot[i]
@@ -276,6 +276,4 @@ class Graphe:
             print("\n")
 
 
-        def calcul_marge(self):
-            # Calculer les calendriers
-            self.marge()
+       
