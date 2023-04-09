@@ -71,8 +71,6 @@ class Graphe:
 
         def est_graphe_ordonnancement(self):
             # Vérifier que le graphe ne contient pas de circuit
-            
-    
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
                 return False
@@ -140,24 +138,27 @@ class Graphe:
 
         # Calculer les rangs de chaque tâche
         def calculer_rangs(self):
-            cptRang = 0
+            # Sommets fictifs a et w
+            self.rangs[0] = 0
+            max_rang = 0
 
-            for j in range(self.N + 2): # Pour chaque colonne
-                for i in range(self.N + 2): # Pour chaque ligne
-                    if self.matrice[i][j] != '*': 
-                        cptRang += 1       
-                self.rangs[j] = cptRang # On ajoute le rang de la tâche j
-                cptRang = 0
-            return self.rangs
+            # Calculer les rangs des sommets
+            for j in range(1, self.N+2):
+                for i in range(self.N+2): 
+                    if self.matrice[i][j] != "*":
+                        # Trouver le rang maximum des prédécesseurs du sommet i 
+                        max_rang = max(max_rang, self.rangs[i] + 1)
+                self.rangs[j] = max_rang
+
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
-            print("\nEtat  | ", end="")
+            print("\nSommet | ", end="")
 
             for j in range(self.N + 2): # print les taches
                 print(str(j) + " | ", end="")
 
-            print("\nRang  | ", end="")
+            print("\nRang   | ", end="")
 
             for j in range(self.N + 2): # print les rangs
                 if j >= 10:
