@@ -145,17 +145,42 @@ class Graphe:
 
         # Calculer les rangs de chaque tâche
         def calculer_rangs(self):
+            # Initialiser les rangs
+            for i in range(self.N+2):
+                self.rangs[i] = -1
+
             # Sommets fictifs a et w
             self.rangs[0] = 0
-            max_rang = 0
+            
+            temp = []
 
             # Calculer les rangs des sommets
             for j in range(1, self.N+2):
-                for i in range(self.N+2):
+                max_rang = 0
+                for i in range(self.N+2): 
                     if self.matrice[i][j] != "*":
-                        # Trouver le rang maximum des prédécesseurs du sommet i
-                        max_rang = max(max_rang, self.rangs[i] + 1)
+                        # si le numéro de la colonne est plus petit que le numéro de la ligne
+                        if j > i:
+                            # Trouver le rang maximum des prédécesseurs du sommet i 
+                            max_rang = max(max_rang, self.rangs[i] + 1)
+                        else:
+                            # sinon ca veut dire que nous n'avons pas encore calculé le rang du sommet i
+                            # ajouter la valeur du sommet dans une liste temporaire
+                            # empecher d'ajouter le sommet a plusieurs reprises
+                            if j not in temp:
+                                temp.append(j)
                 self.rangs[j] = max_rang
+            
+            # si la liste temporaire n'est pas vide
+            if temp:
+                # Calculer les rangs des sommets dans la liste temporaire
+                for t in range(len(temp)): 
+                    max_range = 0
+                    for i in range(self.N+2): 
+                        if self.matrice[i][temp[t]] != "*":
+                            # Trouver le rang maximum des prédécesseurs du sommet i
+                            max_range = max(max_range, self.rangs[i] + 1)
+                            self.rangs[temp[t]] = max_range
 
 
         # Affiche les rangs de chaque tâche
@@ -171,15 +196,17 @@ class Graphe:
                 if j >= 10:
                     print(" " + str(self.rangs[j]) + " | ", end="")
                 else:
-                    print(str(self.rangs[j]) + " | ", end="")
+                    print(str(self.rangs[j]) + " | ", end="") 
+            print("\n")
 
-
+        # Calculer les calendriers
         def calculer_calendriers(self):
-
             # Calculer les calendriers
             self.calculer_dates_au_plus_tot()
             self.calculer_dates_au_plus_tard()
 
+
+        # Calculer le calendrier au plus tôt
         def calculer_dates_au_plus_tot(self):
             #calculer dates au plus tot
             for j in range(self.N + 2): # Pour chaque colonne
@@ -187,6 +214,7 @@ class Graphe:
                     if self.matrice[i][j] != '*':
                         self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j], self.dates_au_plus_tot[i] + self.matrice[i][j])
 
+        # Calculer le calendrier au plus tard
         def calculer_dates_au_plus_tard(self):
             # Initialisation de la date au plus tard de la tâche w à la date au plus tôt
             self.dates_au_plus_tard[-1] = self.dates_au_plus_tot[-1]
@@ -201,7 +229,7 @@ class Graphe:
                             au_plus_tard = date
                 self.dates_au_plus_tard[i] = au_plus_tard
 
-
+        # Afficher les calendriers
         def afficher_calendriers(self):
             print("\nDates-| ", end="")
             for j in range(self.N + 2):
@@ -237,6 +265,5 @@ class Graphe:
 
 
         def calcul_marge(self):
-
             # Calculer les calendriers
             self.marge()
