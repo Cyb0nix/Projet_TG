@@ -160,97 +160,35 @@ class Graphe:
             
             
             
-def date_au_plus_tot(rang, edges, task_durations):
-
-    date_plus_tot = []
-
-    for i in range(len(rang)):
-        add = []
-        if i == 0:
-            add.append(int(rang[i].split(',')[1]))  
-            add.append(int(rang[i].split(',')[0])) 
-            add.append("--")  
-            add.append(0)  
-            date_plus_tot.append(add)
+def calendrier_au_plus_tot_plus_tard(matrice, durees):
+    n = len(matrice)
+    cpt_pred = [0] * n  # nombre de prédécesseurs de chaque tâche
+    dates_plus_tot = [0] * n  # dates au plus tôt de chaque tâche
+    dates_plus_tard = [0] * n  # dates au plus tard de chaque tâche
+    marges = [0] * n  # marges de chaque tâche
+    
+    # Calcul des dates au plus tôt de chaque tâche
+    for i in range(n):
+        # Nombre de prédécesseurs de la tâche i
+        cpt_pred[i] = sum([1 for j in range(n) if matrice[j][i] != '*'])
+        if cpt_pred[i] == 0:
+            # Si la tâche n'a pas de prédécesseurs, sa date au plus tôt est 0
+            dates_plus_tot[i] = 0
         else:
-            predecessors = []
-            for edge in edges:
-                if edge[1] == int(rang[i].split(',')[0]):
-                    predecessors.append(str(edge[0]) + "->" + str(edge[1]))
-            if len(predecessors) == 1:
-                if predecessors[0].split("->")[0] != "0":
-                    duration = task_durations[int(predecessors[0].split("->")[0]) - 1]
-                else:
-                    duration = 0
-                for u in date_plus_tot:
-                    if u[1] == int(predecessors[0].split("->")[0]):
-                        somme = int(u[-1]) + duration
-                add = []
-                add.append(int(rang[i].split(',')[1]))  
-                add.append(int(rang[i].split(',')[0]))  
-                add.append(predecessors)  # Successeur
-                add.append(somme)  # Dates par Successeur
-                date_plus_tot.append(add)
-
-            else:
-                compare_dates = []
-                for x in range(len(predecessors)):
-                    if int(predecessors[x].split("->")[0]) != 0:
-                        duration = task_durations[int(predecessors[x].split("->")[0]) - 1]
-                    else:
-                        duration = 0
-                    for u in date_plus_tot:
-                        if u[1] == int(predecessors[x].split("->")[0]):
-                            somme = int(u[-1]) + duration
-                            duration = 0
-                    compare_dates.append(somme)
-
-                maxi = max(compare_dates)
-
-                add = []
-                add.append(int(rang[i].split(',')[1]))  
-                add.append(int(rang[i].split(',')[0]))  
-                add.append(predecessors) 
-                add.append(maxi)  
-                date_plus_tot.append(add)
-
-    return date_plus_tot
-
-
-
-
-
-    def date_au_plus_tard(rang, triplets, task_duration, date_tot):
-    # inverser le rang et date_tot
-    rang_inverse = rang[::-1]
-    date_tot_inverse = date_tot[::-1]
-    date_plus_tard = []
-
-    for i, r in enumerate(rang_inverse):
-        add = [int(r.split(',')[1]), int(r.split(',')[0]), "--"]
-
-        # Trouver les successeurs de la tÃ¢che
-        successeur = [f"{t[0]}->{t[1]}" for t in triplets if t[0] == add[1]]
-
-        if len(successeur) == 1:
-            duration = task_duration[int(successeur[0].split("->")[0]) - 1] if int(successeur[0].split("->")[0]) != 0 else 0
-            date_successeur = next(d[-1] for d in date_plus_tard if d[1] == int(successeur[0].split("->")[1]))
-            diff = date_successeur - duration
-            add += [diff]
+            # Sinon, la date au plus tôt est la plus grande date au plus tôt de ses prédécesseurs
+            dates_plus_tot[i] = max([dates_plus_tot[j] + durees[j] for j in range(n) if matrice[j][i] != '*'])
+    
+    # Calcul des dates au plus tard de chaque tâche
+    for i in range(n - 1, -1, -1):
+        if i == n - 1:
+            # La date au plus tard de la dernière tâche est égale à sa date au plus tôt
+            dates_plus_tard[i] = dates_plus_tot[i]
         else:
-            compare_date = []
-            for s in successeur:
-                duration = task_duration[int(s.split("->")[0]) - 1] if int(s.split("->")[0]) != 0 else 0
-                date_successeur = next(d[-1] for d in date_plus_tard if d[1] == int(s.split("->")[1]))
-                diff = date_successeur - duration
-                compare_date.append(diff)
-            mini = min(compare_date)
-            add += [mini]
-
-        date_plus_tard.append(add)
-
-    # inverser date_plus_tard et remettre la structure originale
-    date_plus_tard = date_plus_tard[::-1]
-    date_plus_tard = [[d[0], d[1], d[2], date_tot_inverse[i][-1], d[3]] for i, d in enumerate(date_plus_tard)]
-
-    return date_plus_tard
+            # Sinon, la date au plus tard est la plus petite date au plus tard de ses successeurs
+            dates_plus_tard[i] = min([dates_plus_tard[j] - durees[i] for j in range(n) if matrice[i][j] != '*'])
+    
+    # Calcul des marges de chaque tâche
+    for i in range(n):
+        marges[i] = dates_plus_tard[i] - dates_plus_tot[i]
+    
+    return dates_plus_tot, dates_plus_tard, marges
