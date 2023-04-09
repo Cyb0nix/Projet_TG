@@ -159,36 +159,35 @@ class Graphe:
             
             
             
-            
-def calendrier_au_plus_tot_plus_tard(matrice, durees):
-    n = len(matrice)
-    cpt_pred = [0] * n  # nombre de prédécesseurs de chaque tâche
-    dates_plus_tot = [0] * n  # dates au plus tôt de chaque tâche
-    dates_plus_tard = [0] * n  # dates au plus tard de chaque tâche
-    marges = [0] * n  # marges de chaque tâche
-    
-    # Calcul des dates au plus tôt de chaque tâche
-    for i in range(n):
-        # Nombre de prédécesseurs de la tâche i
-        cpt_pred[i] = sum([1 for j in range(n) if matrice[j][i] != '*'])
-        if cpt_pred[i] == 0:
-            # Si la tâche n'a pas de prédécesseurs, sa date au plus tôt est 0
-            dates_plus_tot[i] = 0
-        else:
-            # Sinon, la date au plus tôt est la plus grande date au plus tôt de ses prédécesseurs
-            dates_plus_tot[i] = max([dates_plus_tot[j] + durees[j] for j in range(n) if matrice[j][i] != '*'])
-    
-    # Calcul des dates au plus tard de chaque tâche
-    for i in range(n - 1, -1, -1):
-        if i == n - 1:
-            # La date au plus tard de la dernière tâche est égale à sa date au plus tôt
-            dates_plus_tard[i] = dates_plus_tot[i]
-        else:
-            # Sinon, la date au plus tard est la plus petite date au plus tard de ses successeurs
-            dates_plus_tard[i] = min([dates_plus_tard[j] - durees[i] for j in range(n) if matrice[i][j] != '*'])
-    
-    # Calcul des marges de chaque tâche
-    for i in range(n):
-        marges[i] = dates_plus_tard[i] - dates_plus_tot[i]
-    
-    return dates_plus_tot, dates_plus_tard, marges
+            def calendrier_au_plus_tot_plus_tard(matrice, durees):
+                n = len(matrice)
+                cpt_pred = [0] * n  # nombre de prédécesseurs de chaque tâche
+                dates_plus_tot = [0] * n  # dates au plus tôt de chaque tâche
+                dates_plus_tard = [0] * n  # dates au plus tard de chaque tâche
+                marges = [0] * n  # marges de chaque tâche
+
+                # Calcul des dates au plus tôt de chaque tâche
+                for i in range(n):
+                    # Nombre de prédécesseurs de la tâche i
+                    cpt_pred[i] = sum([1 for j in range(n) if matrice[j][i] != '*'])
+                    if cpt_pred[i] == 0:
+                        # Si la tâche n'a pas de prédécesseurs, sa date au plus tôt est 0
+                        dates_plus_tot[i] = 0
+                    else:
+                        # Sinon, la date au plus tôt est la plus grande date au plus tôt de ses prédécesseurs
+                        dates_plus_tot[i] = max([dates_plus_tot[j] + durees[j] for j in range(n) if matrice[j][i] != '*'])
+
+                # Calcul des dates au plus tard de chaque tâche
+                for i in range(n - 1, -1, -1):
+                    if i == n - 1:
+                        # La date au plus tard de la dernière tâche est égale à sa date au plus tôt
+                        dates_plus_tard[i] = dates_plus_tot[i]
+                    else:
+                        # Sinon, la date au plus tard est la plus petite date au plus tard de ses successeurs
+                        dates_plus_tard[i] = min([dates_plus_tard[j] - durees[i] for j in range(n) if matrice[i][j] != '*'])
+
+                # Calcul des marges de chaque tâche
+                for i in range(n):
+                    marges[i] = dates_plus_tard[i] - dates_plus_tot[i]
+
+                return dates_plus_tot, dates_plus_tard, marges
