@@ -80,14 +80,17 @@ class Graphe:
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
                 return False
-
+            else:
+                print("\nLe graphe ne contient pas de circuit.")
 
             # Vérifier que le graphe ne contient pas d'arcs à valeur négative
             if self.contient_arcs_negatifs():
                 print("Le graphe contient des arcs à valeur négative.")
                 return False
+            else:
+                print("Le graphe ne contient pas d'arcs à valeur négative.")
 
-            print("Le graphe est un graphe d'ordonnancement.")
+            print("\nLe graphe est un graphe d'ordonnancement.")
             return True
 
         #Détection de circuit avec la méthide de suppression des sommets sans prédécesseurs
@@ -124,13 +127,19 @@ class Graphe:
 
         def supprimer_sommet(self, matrice_copie, sommet):
 
-            print("Suppresion du sommet :",(len(self.matrice)-len(matrice_copie)))
+            print("\nSuppresion du sommet :",(len(self.matrice)-len(matrice_copie)))
             # Supprimer la ligne du sommet
             matrice_copie.pop(sommet)
-
+            
             # Supprimer la colonne du sommet
             for i in range(len(matrice_copie)):
                 matrice_copie[i].pop(sommet)
+            
+            # Afficher la liste des sommets restants
+            print("Sommets restants :", end=" ")
+            for i in range(len(matrice_copie)):
+                print(i, end=" ")
+
             return matrice_copie
 
 
@@ -188,15 +197,18 @@ class Graphe:
             print("\nSommet | ", end="")
 
             for j in range(self.N + 2): # print les taches
-                print(str(j) + " | ", end="")
+                if j < 10:
+                    print(" " + str(j) + "  | ", end="")
+                else:
+                    print(str(j) + "  | ", end="")
 
             print("\nRang   | ", end="")
 
-            for j in range(self.N + 2): # print les rangs
-                if j >= 10:
-                    print(" " + str(self.rangs[j]) + " | ", end="")
+            for i in range(self.N + 2): # print les rangs
+                if self.rangs[i] < 10:
+                    print(" " + str(self.rangs[i]) + "  | ", end="")
                 else:
-                    print(str(self.rangs[j]) + " | ", end="") 
+                    print(str(self.rangs[i]) + "  | ", end="") 
             print("\n")
 
         # Calculer les calendriers
@@ -216,51 +228,51 @@ class Graphe:
 
         # Calculer le calendrier au plus tard
         def calculer_dates_au_plus_tard(self):
-            # Initialisation de la date au plus tard de la tâche w à la date au plus tôt
-            self.dates_au_plus_tard[-1] = self.dates_au_plus_tot[-1]
+            # Initialisation des dates au plus tard
+            for i in range(self.N+2):
+                self.dates_au_plus_tard[i] = -1
 
-            # Parcours du graphe à l'envers en calculant les dates au plus tard
-            for i in range(self.N, 0, -1):
-                au_plus_tard = float('inf')
-                for j in range(self.N + 2):
-                    if self.matrice[i][j] != "*":
-                        date = self.dates_au_plus_tard[j] - self.matrice[i][j]
-                        if date < au_plus_tard:
-                            au_plus_tard = date
-                self.dates_au_plus_tard[i] = au_plus_tard
-
+            self.dates_au_plus_tard[self.N+1] = self.dates_au_plus_tot[self.N+1]
+            
+            for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
+                for i in range(self.N+2): # Parcours des ligne
+                    if self.matrice[i][j] != '*':
+                        if self.dates_au_plus_tard[i] >= 0:
+                            self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
+                        else : 
+                            self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
+        
         # Afficher les calendriers
         def afficher_calendriers(self):
-            print("\nDates-| ", end="")
+            print("Dates- | ", end="")
             for j in range(self.N + 2):
-                if j < 10:
-                    print(str(self.dates_au_plus_tot[j]) + " | ", end="")
+                if self.dates_au_plus_tot[j] < 10:
+                    print(" "+str(self.dates_au_plus_tot[j]) + "  | ", end="")
                 else:
-                    print(str(self.dates_au_plus_tot[j]) + " | ", end="")
+                    print(str(self.dates_au_plus_tot[j]) + "  | ", end="")
 
-            print("\nDates+| ", end="")
+            print("\nDates+ | ", end="")
             for j in range(self.N + 2):
-                if j < 10:
-                    print(str(self.dates_au_plus_tard[j]) + " | ", end="")
+                if self.dates_au_plus_tard[j] < 10:
+                    print(" "+str(self.dates_au_plus_tard[j]) + "  | ", end="")
                 else:
-                    print(str(self.dates_au_plus_tard[j]) + " | ", end="")
-            print("\n")
-
+                    print(str(self.dates_au_plus_tard[j]) + "  | ", end="")
+            print()
 
         def marge(self):
             # Calculer les marges
-            for i in range(1, self.N + 1):
+            for i in range(self.N + 1):
                 self.marges[i] = self.dates_au_plus_tard[i] - self.dates_au_plus_tot[i]
 
 
         def afficher_marge(self):
             # Afficher les marges
-            print("\nMarge | ", end="")
+            print("\nMarge  | ", end="")
             for j in range(self.N + 2):
-                if j < 10:
-                    print(str(self.marges[j]) + " | ", end="")
+                if self.marges[j] < 10:
+                    print(" "+str(self.marges[j]) + "  | ", end="")
                 else:
-                    print(str(self.marges[j]) + " | ", end="")
+                    print(str(self.marges[j]) + "  | ", end="")
             print("\n")
 
 

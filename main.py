@@ -20,16 +20,16 @@ while True: # boucle infinie
     graphe.afficher_matrice(graphe.matrice)
 
     # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
-    if graphe.est_graphe_ordonnancement(): #Cédric
+    if graphe.est_graphe_ordonnancement():
         # calculer les rangs des sommets et les afficher
-        #graphe.calculer_rangs()  #Arthur
-        #graphe.afficher_rangs()
+        graphe.calculer_rangs() 
+        graphe.afficher_rangs()
         
         # # calculer les calendriers au plus tôt et au plus tard et les afficher
-        graphe.calculer_calendriers()  #TODO: fonction à créer - Anas
-        graphe.afficher_calendriers()  #TODO: fonction à créer
+        graphe.calculer_calendriers()
+        graphe.afficher_calendriers()
         
-        # # calculer les marges et les afficher
+        # # # calculer les marges et les afficher
         graphe.calcul_marge()
         graphe.afficher_marge()
         
