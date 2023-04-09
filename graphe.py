@@ -200,3 +200,8 @@ class Graphe:
                 marges[i] = dates_plus_tard[i] - dates_plus_tot[i]
 
             return dates_plus_tot, dates_plus_tard, marges
+        
+        dates_plus_tot, dates_plus_tard, marges = calendrier_au_plus_tot_plus_tard(matrice, durees)
+        print("Dates au plus tôt :", dates_plus_tot)
+        print("Dates au plus tard :", dates_plus_tard)
+        print("Marges :", marges)
