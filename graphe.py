@@ -6,6 +6,8 @@ class Graphe:
             self.duree = {}
             self.rangs = {}
             self.matrice = self.creer_matrice(contraintes)
+            self.dates_au_plus_tot = [0 for i in range(self.N+2)]
+            self.dates_au_plus_tard = [0 for i in range(self.N+2)]
     
         # Créer la matrice des valeurs à partir des contraintes
         def creer_matrice(self, contraintes):
@@ -20,6 +22,7 @@ class Graphe:
                 tache_info = ligne.split()
                 tache = int(tache_info[0])
                 duree = int(tache_info[1])
+                self.duree[0] = 0
                 self.duree[tache] = duree
             
             for ligne in contraintes:
@@ -82,7 +85,8 @@ class Graphe:
             if self.contient_arcs_negatifs():
                 print("Le graphe contient des arcs à valeur négative.")
                 return False
-    
+
+            print("Le graphe est un graphe d'ordonnancement.")
             return True
         
         #Détection de circuit avec la méthide de suppression des sommets sans prédécesseurs
@@ -140,15 +144,28 @@ class Graphe:
 
         # Calculer les rangs de chaque tâche
         def calculer_rangs(self):
-            cptRang = 0
+            # Créer une copie de la matrice
+            matrice_copie = copy.deepcopy(self.matrice)
+            rangs = [0] * len(matrice_copie)
+            rang = 0
 
-            for j in range(self.N + 2): # Pour chaque colonne
-                for i in range(self.N + 2): # Pour chaque ligne
-                    if self.matrice[i][j] != '*': 
-                        cptRang += 1       
-                self.rangs[j] = cptRang # On ajoute le rang de la tâche j
-                cptRang = 0
-            return self.rangs
+            # Tant qu'il reste des sommets dans la matrice
+            while len(matrice_copie) > 0:
+                # Trouver le premier sommet sans prédécesseur
+                sommet = self.trouver_sommet_sans_predecesseur(matrice_copie)
+
+                # Si aucun sommet n'a été trouvé, le graphe contient un circuit
+                if sommet == None:
+                    print("il n'y a plus de sommets sans predecesseur")
+                    return True
+
+                # Supprimer le sommet de la matrice
+                matrice_copie = self.supprimer_sommet(matrice_copie, sommet)
+                rangs[sommet] = rang
+                rang += 1
+
+            self.rangs = rangs
+            
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
@@ -164,39 +181,61 @@ class Graphe:
                     print(" " + str(self.rangs[j]) + " | ", end="")
                 else:
                     print(str(self.rangs[j]) + " | ", end="")
+            
+            
+            
+        def calculer_calendriers(self):
+            
+            
+            # Calculer les calendriers
+            self.calculer_dates_au_plus_tot()
+            # self.calculer_dates_au_plus_tard()
+
+
+        
+        def calculer_dates_au_plus_tot(self):
+            #calculer dates au plus tot
+            for j in range(self.N + 2): # Pour chaque colonne
+                for i in range(self.N + 2): # Pour chaque ligne
+                    if self.matrice[i][j] != '*':
+                        self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j], self.dates_au_plus_tot[i] + self.matrice[i][j])
+
+        
+        # def calculer_dates_au_plus_tard(self):
+        #     #TODO
+
+
+
+
+
+
+            
+            
+            
+        
+        
+
+
+
+                        
+        
+        
+        def afficher_calendriers(self):
+            print("\nDates-| ", end="")
+            for j in range(self.N + 2):
+                if j < 10:
+                    print(str(self.dates_au_plus_tot[j]) + " | ", end="")
+                else:
+                    print(str(self.dates_au_plus_tot[j]) + " | ", end="")
+
+            print("\nDates+| ", end="")
+            for j in range(self.N + 2):
+                if j < 10:
+                    print(str(self.dates_au_plus_tard[j]) + " | ", end="")
+                else:
+                    print(str(self.dates_au_plus_tard[j]) + " | ", end="")
             print("\n")
-            
-            
-            
-        def calendrier_au_plus_tot_plus_tard(matrice, durees):
-            n = len(matrice)
-            cpt_pred = [0] * n  # nombre de prédécesseurs de chaque tâche
-            dates_plus_tot = [0] * n  # dates au plus tôt de chaque tâche
-            dates_plus_tard = [0] * n  # dates au plus tard de chaque tâche
-            marges = [0] * n  # marges de chaque tâche
-            
-            # Calcul des dates au plus tôt de chaque tâche
-            for i in range(n):
-            # Nombre de prédécesseurs de la tâche i
-                cpt_pred[i] = sum([1 for j in range(n) if matrice[j][i] != '*'])
-                if cpt_pred[i] == 0:
-                # Si la tâche n'a pas de prédécesseurs, sa date au plus tôt est 0
-                    dates_plus_tot[i] = 0
-                else:
-            # Sinon, la date au plus tôt est la plus grande date au plus tôt de ses prédécesseurs
-                    dates_plus_tot[i] = max([dates_plus_tot[j] + durees[j] for j in range(n) if matrice[j][i] != '*'])
-                
-                # Calcul des dates au plus tard de chaque tâche
-            for i in range(n - 1, -1, -1):
-                if i == n - 1:
-                    # La date au plus tard de la dernière tâche est égale à sa date au plus tôt
-                    dates_plus_tard[i] = dates_plus_tot[i]
-                else:
-                    # Sinon, la date au plus tard est la plus petite date au plus tard de ses successeurs
-                    dates_plus_tard[i] = min([dates_plus_tard[j] - durees[i] for j in range(n) if matrice[i][j] != '*'])
 
-            # Calcul des marges de chaque tâche
-            for i in range(n):
-                marges[i] = dates_plus_tard[i] - dates_plus_tot[i]
 
-            return dates_plus_tot, dates_plus_tard, marges
+
+
