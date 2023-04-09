@@ -155,3 +155,102 @@ class Graphe:
                 else:
                     print(str(self.rangs[j]) + " | ", end="")
             print("\n")
+            
+            
+            
+            
+            
+def date_au_plus_tot(rang, edges, task_durations):
+
+    date_plus_tot = []
+
+    for i in range(len(rang)):
+        add = []
+        if i == 0:
+            add.append(int(rang[i].split(',')[1]))  
+            add.append(int(rang[i].split(',')[0])) 
+            add.append("--")  
+            add.append(0)  
+            date_plus_tot.append(add)
+        else:
+            predecessors = []
+            for edge in edges:
+                if edge[1] == int(rang[i].split(',')[0]):
+                    predecessors.append(str(edge[0]) + "->" + str(edge[1]))
+            if len(predecessors) == 1:
+                if predecessors[0].split("->")[0] != "0":
+                    duration = task_durations[int(predecessors[0].split("->")[0]) - 1]
+                else:
+                    duration = 0
+                for u in date_plus_tot:
+                    if u[1] == int(predecessors[0].split("->")[0]):
+                        somme = int(u[-1]) + duration
+                add = []
+                add.append(int(rang[i].split(',')[1]))  
+                add.append(int(rang[i].split(',')[0]))  
+                add.append(predecessors)  # Successeur
+                add.append(somme)  # Dates par Successeur
+                date_plus_tot.append(add)
+
+            else:
+                compare_dates = []
+                for x in range(len(predecessors)):
+                    if int(predecessors[x].split("->")[0]) != 0:
+                        duration = task_durations[int(predecessors[x].split("->")[0]) - 1]
+                    else:
+                        duration = 0
+                    for u in date_plus_tot:
+                        if u[1] == int(predecessors[x].split("->")[0]):
+                            somme = int(u[-1]) + duration
+                            duration = 0
+                    compare_dates.append(somme)
+
+                maxi = max(compare_dates)
+
+                add = []
+                add.append(int(rang[i].split(',')[1]))  
+                add.append(int(rang[i].split(',')[0]))  
+                add.append(predecessors) 
+                add.append(maxi)  
+                date_plus_tot.append(add)
+
+    return date_plus_tot
+
+
+
+
+
+    def date_au_plus_tard(rang, triplets, task_duration, date_tot):
+    # inverser le rang et date_tot
+    rang_inverse = rang[::-1]
+    date_tot_inverse = date_tot[::-1]
+    date_plus_tard = []
+
+    for i, r in enumerate(rang_inverse):
+        add = [int(r.split(',')[1]), int(r.split(',')[0]), "--"]
+
+        # Trouver les successeurs de la tÃ¢che
+        successeur = [f"{t[0]}->{t[1]}" for t in triplets if t[0] == add[1]]
+
+        if len(successeur) == 1:
+            duration = task_duration[int(successeur[0].split("->")[0]) - 1] if int(successeur[0].split("->")[0]) != 0 else 0
+            date_successeur = next(d[-1] for d in date_plus_tard if d[1] == int(successeur[0].split("->")[1]))
+            diff = date_successeur - duration
+            add += [diff]
+        else:
+            compare_date = []
+            for s in successeur:
+                duration = task_duration[int(s.split("->")[0]) - 1] if int(s.split("->")[0]) != 0 else 0
+                date_successeur = next(d[-1] for d in date_plus_tard if d[1] == int(s.split("->")[1]))
+                diff = date_successeur - duration
+                compare_date.append(diff)
+            mini = min(compare_date)
+            add += [mini]
+
+        date_plus_tard.append(add)
+
+    # inverser date_plus_tard et remettre la structure originale
+    date_plus_tard = date_plus_tard[::-1]
+    date_plus_tard = [[d[0], d[1], d[2], date_tot_inverse[i][-1], d[3]] for i, d in enumerate(date_plus_tard)]
+
+    return date_plus_tard
