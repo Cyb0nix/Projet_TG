@@ -91,7 +91,7 @@ class Graphe:
         def est_graphe_ordonnancement(self):
             # Vérifier que le graphe ne contient pas de circuit
             print("* Détection de circuit")
-            print("* Méthode d’élimination des sommets sans prédécesseur")
+            print("* Méthode d’élimination des sommets sans prédécesseurs")
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
                 return False
@@ -108,7 +108,7 @@ class Graphe:
             print("\nLe graphe est un graphe d'ordonnancement.")
             return True
 
-        #Détection de circuit avec la méthide de suppression des sommets sans prédécesseurs
+        #Détection de circuit avec la méthode de suppression des sommets sans prédécesseurs
         def contient_circuit(self):
             # Créer une copie de la matrice
             matrice_copie = copy.deepcopy(self.matrice)
