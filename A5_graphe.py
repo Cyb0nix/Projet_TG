@@ -59,7 +59,7 @@ class Graphe:
         def afficher_matrice(self,matrice):
 
             #affichage comme un jeu de triplets
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a")
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
             print("* Création du graphe d’ordonnancement :")
             f.write("* Création du graphe d’ordonnancement :\n")
             print(str(self.N+2)+" sommets")
@@ -108,7 +108,7 @@ class Graphe:
 
 
         def est_graphe_ordonnancement(self):
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a")
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
             # Vérifier que le graphe ne contient pas de circuit
             print("* Détection de circuit")
             f.write("* Détection de circuit\n")
@@ -140,7 +140,7 @@ class Graphe:
 
         #Détection de circuit avec la méthode de suppression des sommets sans prédécesseurs
         def contient_circuit(self):
-            f = open("./Traces/A2_trace_"+ self.name +".txt", "a")
+            f = open("./Traces/A5_trace_"+ self.name +".txt", "a")
             # Créer une copie de la matrice
             matrice_copie = copy.deepcopy(self.matrice)
 
@@ -174,7 +174,7 @@ class Graphe:
             return None
 
         def supprimer_sommet(self, matrice_copie, sommet):
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a")
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
             print("\nSuppresion du sommet :",(len(self.matrice)-len(matrice_copie)))
             f.write("\nSuppresion du sommet :"+str((len(self.matrice)-len(matrice_copie)))+"\n")
             # Supprimer la ligne du sommet
@@ -246,7 +246,7 @@ class Graphe:
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a")
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
             print("\nSommet | ", end="")
             f.write("\nSommet | ")
 
@@ -305,7 +305,7 @@ class Graphe:
         
         # Afficher les calendriers
         def afficher_calendriers(self):
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a") 
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a") 
             print("Dates- | ", end="")
             f.write("Dates- | ")
 
@@ -339,7 +339,7 @@ class Graphe:
 
         def afficher_marge(self):
             # Afficher les marges
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a") 
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a") 
             print("\nMarge  | ", end="")
             f.write("\nMarge  | ")
             for j in range(self.N + 2):
@@ -361,7 +361,7 @@ class Graphe:
                     self.Chemin_critique.append(i)
 
         def afficher_chemins_critiques(self):
-            f = open("./Traces/A2_trace_"+self.name+".txt", "a")
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
             print("Le(s) chemin(s) critique(s) : ")
             f.write("Le(s) chemin(s) critique(s) : \n")
 

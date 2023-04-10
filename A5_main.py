@@ -1,4 +1,4 @@
-from A2_graphe import *
+from A5_graphe import *
 
 while True: # boucle infinie
     # demande à l'utilisateur s'il veut tester un tableau de contraintes
@@ -11,7 +11,7 @@ while True: # boucle infinie
 
     # lire le fichier et stocker les contraintes en mémoire
     contraintes = []
-    with open("./Tables/A2_table "+nom_fichier+".txt", 'r') as f:
+    with open("./Tables/A5_table "+nom_fichier+".txt", 'r') as f:
         for ligne in f:
             contraintes.append(ligne.strip())
     f.close()
@@ -22,7 +22,7 @@ while True: # boucle infinie
     # créer la matrice correspondant au graphe et l'afficheroui
     graphe = Graphe(contraintes)
     graphe.name = nom_fichier
-    f = open("./Traces/A2_trace_"+nom_fichier+".txt", "a")
+    f = open("./Traces/A5_trace_"+nom_fichier+".txt", "a")
     f.close()
     graphe.afficher_matrice(graphe.matrice)
 
