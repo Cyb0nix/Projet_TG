@@ -14,6 +14,9 @@ while True: # boucle infinie
     with open("./Tables/table "+nom_fichier+".txt", 'r') as f:
         for ligne in f:
             contraintes.append(ligne.strip())
+    f.close()
+
+    
 
     # créer la matrice correspondant au graphe et l'afficheroui
     graphe = Graphe(contraintes)

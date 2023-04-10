@@ -6,6 +6,7 @@ class Graphe:
             self.N = len(contraintes)
             self.duree = {}
             self.rangs = {}
+            self.arcs = 0
             self.matrice = self.creer_matrice(contraintes)
             self.dates_au_plus_tot = [0 for i in range(self.N+2)]
             self.dates_au_plus_tard = [0 for i in range(self.N+2)]
@@ -40,6 +41,7 @@ class Graphe:
                 else:
                     for c in contraintes:
                         matrice[c][tache] = self.duree[c]
+                    self.arcs += len(contraintes)
 
             for i in range(len(matrice)):
                 for j in range(len(matrice)):
@@ -50,6 +52,16 @@ class Graphe:
                         #si le sommet est un sommet final et que ce n'est pas le sommet w, on le relie au sommet w avec la durée de la tache
                         if j == len(matrice)-1 and i != len(matrice)-1:
                             matrice[i][j] = self.duree[i]
+            
+            #affichage comme un jeu de triplets
+            print("* Création du graphe d’ordonnancement :")
+            print(str(self.N+2)+" sommets")
+            print(str(self.arcs)+" arcs")
+            for i in range(len(matrice)):
+                for j in range(len(matrice)):
+                    if matrice[i][j] != "*":
+                        print(str(i)+" -> "+str(j)+" = " + str(self.duree[i]))
+            print()
 
             return matrice
 
@@ -78,6 +90,8 @@ class Graphe:
 
         def est_graphe_ordonnancement(self):
             # Vérifier que le graphe ne contient pas de circuit
+            print("* Détection de circuit")
+            print("* Méthode d’élimination des sommets sans prédécesseur")
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
                 return False
