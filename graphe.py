@@ -4,6 +4,7 @@ class Graphe:
         def __init__(self, contraintes):
 
             self.N = len(contraintes)
+            self.name = ""
             self.duree = {}
             self.rangs = {}
             self.arcs = 0
@@ -53,63 +54,93 @@ class Graphe:
                         if j == len(matrice)-1 and i != len(matrice)-1:
                             matrice[i][j] = self.duree[i]
             
+            return matrice
+
+        def afficher_matrice(self,matrice):
+
             #affichage comme un jeu de triplets
+            f = open("./Traces/trace_"+self.name+".txt", "a")
             print("* Création du graphe d’ordonnancement :")
+            f.write("* Création du graphe d’ordonnancement :\n")
             print(str(self.N+2)+" sommets")
+            f.write(str(self.N+2)+" sommets\n")
             print(str(self.arcs)+" arcs")
+            f.write(str(self.arcs)+" arcs\n")
             for i in range(len(matrice)):
                 for j in range(len(matrice)):
                     if matrice[i][j] != "*":
                         print(str(i)+" -> "+str(j)+" = " + str(self.duree[i]))
+                        f.write(str(i)+" -> "+str(j)+" = " + str(self.duree[i])+"\n")
             print()
+            f.write("\n")
 
-            return matrice
-
-        def afficher_matrice(self,matrice):
             print("Matrice des valeurs")
+            f.write("Matrice des valeurs\n")
             print("    ", end="")
+            f.write("    ")
             for i in range(len(matrice)):
                 if i < 10:
                     print(" " + str(i) + "  ", end="")
+                    f.write(" " + str(i) + "  ")
                 else:
                     print(str(i) + "  ", end="")
+                    f.write(str(i) + "  ")
 
             print("\n", end='')
+            f.write("\n")
             for i in range(len(matrice)):
                 if i < 10:
                     print(" " + str(i) + " ", end="")
+                    f.write(" " + str(i) + " ")
                 else:
                     print(str(i) + " ", end="")
+                    f.write(str(i) + " ")
                 for j in range(len(matrice)):
                     if j < 10:
                         print("  " + str(matrice[i][j]) + " ", end="")
+                        f.write("  " + str(matrice[i][j]) + " ")
                     else:
                         print("  " + str(matrice[i][j]) + " ", end="")
+                        f.write("  " + str(matrice[i][j]) + " ")
                 print()
+                f.write("\n")
+            f.close()
 
 
         def est_graphe_ordonnancement(self):
+            f = open("./Traces/trace_"+self.name+".txt", "a")
             # Vérifier que le graphe ne contient pas de circuit
             print("* Détection de circuit")
+            f.write("* Détection de circuit\n")
             print("* Méthode d’élimination des sommets sans prédécesseurs")
+            f.write("* Méthode d’élimination des sommets sans prédécesseurs\n")
             if self.contient_circuit():
                 print("Le graphe contient un circuit.")
+                f.write("Le graphe contient un circuit.\n")
+                f.close()
                 return False
             else:
                 print("\nLe graphe ne contient pas de circuit.")
+                f.write("\nLe graphe ne contient pas de circuit.\n")
 
             # Vérifier que le graphe ne contient pas d'arcs à valeur négative
             if self.contient_arcs_negatifs():
                 print("Le graphe contient des arcs à valeur négative.")
+                f.write("Le graphe contient des arcs à valeur négative.\n")
+                f.close()
                 return False
             else:
                 print("Le graphe ne contient pas d'arcs à valeur négative.")
+                f.write("Le graphe ne contient pas d'arcs à valeur négative.\n")
 
             print("\nLe graphe est un graphe d'ordonnancement.")
+            f.write("\nLe graphe est un graphe d'ordonnancement.\n")
+            f.close()
             return True
 
         #Détection de circuit avec la méthode de suppression des sommets sans prédécesseurs
         def contient_circuit(self):
+            f = open("./Traces/trace_"+ self.name +".txt", "a")
             # Créer une copie de la matrice
             matrice_copie = copy.deepcopy(self.matrice)
 
@@ -121,11 +152,13 @@ class Graphe:
                 # Si aucun sommet n'a été trouvé, le graphe contient un circuit
                 if sommet == None:
                     print("il n'y a plus de sommets sans predecesseur")
+                    f.write("il n'y a plus de sommets sans predecesseur\n")
+                    f.close()
                     return True
 
                 # Supprimer le sommet de la matrice
                 matrice_copie = self.supprimer_sommet(matrice_copie, sommet)
-
+            f.close()
             return False
 
         def trouver_sommet_sans_predecesseur(self, matrice_copie):
@@ -141,8 +174,9 @@ class Graphe:
             return None
 
         def supprimer_sommet(self, matrice_copie, sommet):
-
+            f = open("./Traces/trace_"+self.name+".txt", "a")
             print("\nSuppresion du sommet :",(len(self.matrice)-len(matrice_copie)))
+            f.write("\nSuppresion du sommet :"+str((len(self.matrice)-len(matrice_copie)))+"\n")
             # Supprimer la ligne du sommet
             matrice_copie.pop(sommet)
             
@@ -152,9 +186,12 @@ class Graphe:
             
             # Afficher la liste des sommets restants
             print("Sommets restants :", end=" ")
+            f.write("Sommets restants :")
             for i in range(len(matrice_copie)):
                 print(i, end=" ")
+                f.write(str(i)+" ")
 
+            f.close()
             return matrice_copie
 
 
@@ -209,22 +246,31 @@ class Graphe:
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
+            f = open("./Traces/trace_"+self.name+".txt", "a")
             print("\nSommet | ", end="")
+            f.write("\nSommet | ")
 
             for j in range(self.N + 2): # print les taches
                 if j < 10:
                     print(" " + str(j) + "  | ", end="")
+                    f.write(" " + str(j) + "  | ")
                 else:
                     print(str(j) + "  | ", end="")
+                    f.write(str(j) + "  | ")
 
             print("\nRang   | ", end="")
+            f.write("\nRang   | ")
 
             for i in range(self.N + 2): # print les rangs
                 if self.rangs[i] < 10:
                     print(" " + str(self.rangs[i]) + "  | ", end="")
+                    f.write(" " + str(self.rangs[i]) + "  | ")
                 else:
                     print(str(self.rangs[i]) + "  | ", end="") 
+                    f.write(str(self.rangs[i]) + "  | ")
             print("\n")
+            f.write("\n")
+            f.close()
 
         # Calculer les calendriers
         def calculer_calendriers(self):
@@ -259,20 +305,31 @@ class Graphe:
         
         # Afficher les calendriers
         def afficher_calendriers(self):
+            f = open("./Traces/trace_"+self.name+".txt", "a") 
             print("Dates- | ", end="")
+            f.write("Dates- | ")
+
             for j in range(self.N + 2):
                 if self.dates_au_plus_tot[j] < 10:
                     print(" "+str(self.dates_au_plus_tot[j]) + "  | ", end="")
+                    f.write(" "+str(self.dates_au_plus_tot[j]) + "  | ")
                 else:
                     print(str(self.dates_au_plus_tot[j]) + "  | ", end="")
+                    f.write(str(self.dates_au_plus_tot[j]) + "  | ")
 
             print("\nDates+ | ", end="")
+            f.write("\nDates+ | ")
             for j in range(self.N + 2):
                 if self.dates_au_plus_tard[j] < 10:
                     print(" "+str(self.dates_au_plus_tard[j]) + "  | ", end="")
+                    f.write(" "+str(self.dates_au_plus_tard[j]) + "  | ")
                 else:
                     print(str(self.dates_au_plus_tard[j]) + "  | ", end="")
+                    f.write(str(self.dates_au_plus_tard[j]) + "  | ")
             print()
+            f.write("\n")
+            f.close()
+
 
         def calcul_marge(self):
             # Calculer les marges
@@ -282,13 +339,19 @@ class Graphe:
 
         def afficher_marge(self):
             # Afficher les marges
+            f = open("./Traces/trace_"+self.name+".txt", "a") 
             print("\nMarge  | ", end="")
+            f.write("\nMarge  | ")
             for j in range(self.N + 2):
                 if self.marges[j] < 10:
                     print(" "+str(self.marges[j]) + "  | ", end="")
+                    f.write(" "+str(self.marges[j]) + "  | ")
                 else:
                     print(str(self.marges[j]) + "  | ", end="")
+                    f.write(str(self.marges[j]) + "  | ")
             print("\n")
+            f.write("\n")
+            f.close()
 
         
         def trouver_chemins_critiques(self):
@@ -298,11 +361,16 @@ class Graphe:
                     self.Chemin_critique.append(i)
 
         def afficher_chemins_critiques(self):
+            f = open("./Traces/trace_"+self.name+".txt", "a")
             print("Le(s) chemin(s) critique(s) : ")
+            f.write("Le(s) chemin(s) critique(s) : \n")
 
             for i in range(len(self.Chemin_critique)-1):
                 print(str(self.Chemin_critique[i]) + "(" + str(self.duree[self.Chemin_critique[i]]) + ") --> ", end="")
+                f.write(str(self.Chemin_critique[i]) + "(" + str(self.duree[self.Chemin_critique[i]]) + ") --> ")
             
             print(str(self.Chemin_critique[len(self.Chemin_critique)-1]), end="\n")
+            f.write(str(self.Chemin_critique[len(self.Chemin_critique)-1]) + "\n")
+            f.close()
 
        

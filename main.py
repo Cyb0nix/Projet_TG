@@ -15,11 +15,15 @@ while True: # boucle infinie
         for ligne in f:
             contraintes.append(ligne.strip())
     f.close()
-
     
+
+   
 
     # créer la matrice correspondant au graphe et l'afficheroui
     graphe = Graphe(contraintes)
+    graphe.name = nom_fichier
+    f = open("./Traces/trace_"+nom_fichier+".txt", "a")
+    f.close()
     graphe.afficher_matrice(graphe.matrice)
 
     # vérifier si les propriétés pour un graphe d'ordonnancement sont vérifiées
