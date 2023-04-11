@@ -246,11 +246,14 @@ class Graphe:
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
-            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
+            f = open("./Traces/A5_trace_" + self.name + ".txt", "a")
             print("\nSommet | ", end="")
             f.write("\nSommet | ")
 
-            for j in range(self.N + 2): # print les taches
+            # trier les sommets par leur rang
+            sommets_tries = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
+
+            for j in sommets_tries:  # print les taches
                 if j < 10:
                     print(" " + str(j) + "  | ", end="")
                     f.write(" " + str(j) + "  | ")
@@ -261,12 +264,12 @@ class Graphe:
             print("\nRang   | ", end="")
             f.write("\nRang   | ")
 
-            for i in range(self.N + 2): # print les rangs
+            for i in sommets_tries:  # print les rangs
                 if self.rangs[i] < 10:
                     print(" " + str(self.rangs[i]) + "  | ", end="")
                     f.write(" " + str(self.rangs[i]) + "  | ")
                 else:
-                    print(str(self.rangs[i]) + "  | ", end="") 
+                    print(str(self.rangs[i]) + "  | ", end="")
                     f.write(str(self.rangs[i]) + "  | ")
             print("\n")
             f.write("\n")
@@ -372,5 +375,3 @@ class Graphe:
             print(str(self.Chemin_critique[len(self.Chemin_critique)-1]), end="\n")
             f.write(str(self.Chemin_critique[len(self.Chemin_critique)-1]) + "\n")
             f.close()
-
-       
