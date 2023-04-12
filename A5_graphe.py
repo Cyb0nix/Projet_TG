@@ -292,12 +292,12 @@ class Graphe:
             sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
 
             # Calculer les dates au plus tôt en utilisant l'ordre des rangs
-            for k in sorted_nodes :
-                for j in range(self.N + 2):
-                    for i in range(self.N + 2):
-                        if self.matrice[i][j] != "*":
-                            self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j],
-                                                            self.dates_au_plus_tot[i] + self.matrice[i][j])
+            
+            for j in range(self.N + 2):
+                for i in range(self.N + 2):
+                    if self.matrice[i][j] != "*":
+                        self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j],
+                                                        self.dates_au_plus_tot[i] + self.matrice[i][j])
 
         # Calculer le calendrier au plus tard
         def calculer_dates_au_plus_tard(self):
