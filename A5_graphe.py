@@ -187,7 +187,7 @@ class Graphe:
             # Afficher la liste des sommets restants
             print("Sommets restants :", end=" ")
             f.write("Sommets restants :")
-            for i in range(len(matrice_copie)):
+            for i in range((len(self.matrice) - len(matrice_copie)),len(self.matrice)):
                 print(i, end=" ")
                 f.write(str(i)+" ")
 
@@ -220,7 +220,7 @@ class Graphe:
                 max_rang = 0
                 for i in range(self.N + 2):
                     if self.matrice[i][j] != "*":
-                        # si le numéro de la colonne est plus petit que le numéro de la ligne
+                        # si le numéro de la colonne est plus grand que le numéro de la ligne
                         if j > i:
                             # Trouver le rang maximum des prédécesseurs du sommet i
                             max_rang = max(max_rang, self.rangs[i] + 1)
@@ -288,16 +288,13 @@ class Graphe:
         # Calculer le calendrier au plus tôt
         def calculer_dates_au_plus_tot(self):
 
-            # Trier les sommets par ordre croissant de rangs
-            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
-
             # Calculer les dates au plus tôt en utilisant l'ordre des rangs
-            for k in sorted_nodes :
-                for j in range(self.N + 2):
-                    for i in range(self.N + 2):
-                        if self.matrice[i][j] != "*":
-                            self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j],
-                                                            self.dates_au_plus_tot[i] + self.matrice[i][j])
+            
+            for j in range(self.N + 2):
+                for i in range(self.N + 2):
+                    if self.matrice[i][j] != "*":
+                        self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j],
+                                                        self.dates_au_plus_tot[i] + self.matrice[i][j])
 
         # Calculer le calendrier au plus tard
         def calculer_dates_au_plus_tard(self):
@@ -307,17 +304,13 @@ class Graphe:
 
             self.dates_au_plus_tard[self.N+1] = self.dates_au_plus_tot[self.N+1]
 
-            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
-
-
-            for k in sorted_nodes:
-                for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
-                    for i in range(self.N+2): # Parcours des ligne
-                        if self.matrice[i][j] != '*':
-                            if self.dates_au_plus_tard[i] >= 0:
-                                self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
-                            else :
-                                self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
+            for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
+                for i in range(self.N+2): # Parcours des ligne
+                    if self.matrice[i][j] != '*':
+                        if self.dates_au_plus_tard[i] >= 0:
+                            self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
+                        else :
+                            self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
         
         # Afficher les calendriers
         def afficher_calendriers(self):
