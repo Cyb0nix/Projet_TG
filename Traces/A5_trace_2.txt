@@ -88,3 +88,93 @@ Dates+ |  0  |  3  |  0  | 19  |  5  | 23  |  7  | 13  | 12  | 32  | 24  | 17  |
 Marge  |  0  |  3  |  0  | 17  |  0  | 17  |  0  |  6  |  0  |  6  |  7  |  0  |  0  |  0  |  0  | 
 Le(s) chemin(s) critique(s) : 
 0(0) --> 2(5) --> 6(2) --> 7(5) --> 8(5) --> 9(9) --> 10(2) --> 12(5) --> 14
+* Création du graphe d’ordonnancement :
+15 sommets
+18 arcs
+0 -> 1 = 0
+0 -> 2 = 0
+1 -> 3 = 2
+1 -> 6 = 2
+2 -> 6 = 5
+3 -> 4 = 4
+4 -> 5 = 1
+5 -> 14 = 9
+6 -> 5 = 2
+6 -> 7 = 2
+6 -> 11 = 2
+6 -> 13 = 2
+7 -> 8 = 5
+7 -> 12 = 5
+8 -> 5 = 5
+8 -> 9 = 5
+8 -> 12 = 5
+9 -> 10 = 9
+9 -> 12 = 9
+10 -> 12 = 2
+11 -> 13 = 19
+12 -> 14 = 5
+13 -> 14 = 1
+
+Matrice des valeurs
+     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  
+ 0   *   0   0   *   *   *   *   *   *   *   *   *   *   *   * 
+ 1   *   *   *   2   *   *   2   *   *   *   *   *   *   *   * 
+ 2   *   *   *   *   *   *   5   *   *   *   *   *   *   *   * 
+ 3   *   *   *   *   4   *   *   *   *   *   *   *   *   *   * 
+ 4   *   *   *   *   *   1   *   *   *   *   *   *   *   *   * 
+ 5   *   *   *   *   *   *   *   *   *   *   *   *   *   *   9 
+ 6   *   *   *   *   *   2   *   2   *   *   *   2   *   2   * 
+ 7   *   *   *   *   *   *   *   *   5   *   *   *   5   *   * 
+ 8   *   *   *   *   *   5   *   *   *   5   *   *   5   *   * 
+ 9   *   *   *   *   *   *   *   *   *   *   9   *   9   *   * 
+10   *   *   *   *   *   *   *   *   *   *   *   *   2   *   * 
+11   *   *   *   *   *   *   *   *   *   *   *   *   *   19   * 
+12   *   *   *   *   *   *   *   *   *   *   *   *   *   *   5 
+13   *   *   *   *   *   *   *   *   *   *   *   *   *   *   1 
+14   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * 
+
+Suppresion du sommet :0
+Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+Suppresion du sommet :1
+Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 12 
+Suppresion du sommet :2
+Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 
+Suppresion du sommet :3
+Sommets restants :0 1 2 3 4 5 6 7 8 9 10 
+Suppresion du sommet :4
+Sommets restants :0 1 2 3 4 5 6 7 8 9 
+Suppresion du sommet :5
+Sommets restants :0 1 2 3 4 5 6 7 8 
+Suppresion du sommet :6
+Sommets restants :0 1 2 3 4 5 6 7 
+Suppresion du sommet :7
+Sommets restants :0 1 2 3 4 5 6 
+Suppresion du sommet :8
+Sommets restants :0 1 2 3 4 5 
+Suppresion du sommet :9
+Sommets restants :0 1 2 3 4 
+Suppresion du sommet :10
+Sommets restants :0 1 2 3 
+Suppresion du sommet :11
+Sommets restants :0 1 2 
+Suppresion du sommet :12
+Sommets restants :0 1 
+Suppresion du sommet :13
+Sommets restants :0 
+Suppresion du sommet :14
+Sommets restants :* Détection de circuit
+* Méthode d’élimination des sommets sans prédécesseurs
+
+Le graphe ne contient pas de circuit.
+Le graphe ne contient pas d'arcs à valeur négative.
+
+Le graphe est un graphe d'ordonnancement.
+
+Sommet |  0  |  1  |  2  |  3  |  6  |  4  |  7  | 11  |  8  | 13  |  5  |  9  | 10  | 12  | 14  | 
+Rang   |  0  |  1  |  1  |  2  |  2  |  3  |  3  |  3  |  4  |  4  |  5  |  5  |  6  |  7  |  8  | 
+Dates- |  0  |  0  |  0  |  2  |  5  |  6  |  7  |  7  | 12  | 26  | 17  | 17  | 26  | 28  | 33  | 
+Dates+ |  0  |  3  |  0  | 19  |  5  | 23  |  7  | 13  | 12  | 32  | 24  | 17  | 26  | 28  | 33  | 
+
+Marge  |  0  |  3  |  0  | 17  |  0  | 17  |  0  |  6  |  0  |  6  |  7  |  0  |  0  |  0  |  0  | 
+Le(s) chemin(s) critique(s) : 
+0(0) --> 2(5) --> 6(2) --> 7(5) --> 8(5) --> 9(9) --> 10(2) --> 12(5) --> 14
