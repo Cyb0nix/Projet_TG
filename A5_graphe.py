@@ -187,7 +187,7 @@ class Graphe:
             # Afficher la liste des sommets restants
             print("Sommets restants :", end=" ")
             f.write("Sommets restants :")
-            for i in range(len(matrice_copie)):
+            for i in range((len(self.matrice) - len(matrice_copie)),len(self.matrice)):
                 print(i, end=" ")
                 f.write(str(i)+" ")
 
