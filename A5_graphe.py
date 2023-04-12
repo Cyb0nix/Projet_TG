@@ -220,7 +220,7 @@ class Graphe:
                 max_rang = 0
                 for i in range(self.N + 2):
                     if self.matrice[i][j] != "*":
-                        # si le numéro de la colonne est plus petit que le numéro de la ligne
+                        # si le numéro de la colonne est plus grand que le numéro de la ligne
                         if j > i:
                             # Trouver le rang maximum des prédécesseurs du sommet i
                             max_rang = max(max_rang, self.rangs[i] + 1)
