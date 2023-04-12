@@ -207,22 +207,22 @@ class Graphe:
         # Calculer les rangs de chaque tâche
         def calculer_rangs(self):
             # Initialiser les rangs
-            for i in range(self.N+2):
+            for i in range(self.N + 2):
                 self.rangs[i] = -1
 
             # Sommets fictifs a et w
             self.rangs[0] = 0
-            
+
             temp = []
 
             # Calculer les rangs des sommets
-            for j in range(1, self.N+2):
+            for j in range(1, self.N + 2):
                 max_rang = 0
-                for i in range(self.N+2): 
+                for i in range(self.N + 2):
                     if self.matrice[i][j] != "*":
                         # si le numéro de la colonne est plus petit que le numéro de la ligne
                         if j > i:
-                            # Trouver le rang maximum des prédécesseurs du sommet i 
+                            # Trouver le rang maximum des prédécesseurs du sommet i
                             max_rang = max(max_rang, self.rangs[i] + 1)
                         else:
                             # sinon ca veut dire que nous n'avons pas encore calculé le rang du sommet i
@@ -231,18 +231,21 @@ class Graphe:
                             if j not in temp:
                                 temp.append(j)
                 self.rangs[j] = max_rang
-            
+
             # si la liste temporaire n'est pas vide
             if temp:
                 # Calculer les rangs des sommets dans la liste temporaire
-                for t in range(len(temp)): 
+                for t in range(len(temp)):
                     max_range = 0
-                    for i in range(self.N+2): 
+                    for i in range(self.N + 2):
                         if self.matrice[i][temp[t]] != "*":
                             # Trouver le rang maximum des prédécesseurs du sommet i
                             max_range = max(max_range, self.rangs[i] + 1)
                             self.rangs[temp[t]] = max_range
 
+            # Trier les rangs par ordre croissant
+            sorted_rangs = sorted(self.rangs, key=lambda x: (x == -1, x))
+            return sorted_rangs
 
         # Affiche les rangs de chaque tâche
         def afficher_rangs(self):
@@ -284,11 +287,17 @@ class Graphe:
 
         # Calculer le calendrier au plus tôt
         def calculer_dates_au_plus_tot(self):
-            #calculer dates au plus tot
-            for j in range(self.N + 2): # Pour chaque colonne
-                for i in range(self.N + 2): # Pour chaque ligne
-                    if self.matrice[i][j] != '*':
-                        self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j], self.dates_au_plus_tot[i] + self.matrice[i][j])
+
+            # Trier les sommets par ordre croissant de rangs
+            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
+
+            # Calculer les dates au plus tôt en utilisant l'ordre des rangs
+            for k in sorted_nodes :
+                for j in range(self.N + 2):
+                    for i in range(self.N + 2):
+                        if self.matrice[i][j] != "*":
+                            self.dates_au_plus_tot[j] = max(self.dates_au_plus_tot[j],
+                                                            self.dates_au_plus_tot[i] + self.matrice[i][j])
 
         # Calculer le calendrier au plus tard
         def calculer_dates_au_plus_tard(self):
@@ -297,42 +306,49 @@ class Graphe:
                 self.dates_au_plus_tard[i] = -1
 
             self.dates_au_plus_tard[self.N+1] = self.dates_au_plus_tot[self.N+1]
-            
-            for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
-                for i in range(self.N+2): # Parcours des ligne
-                    if self.matrice[i][j] != '*':
-                        if self.dates_au_plus_tard[i] >= 0:
-                            self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
-                        else : 
-                            self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
+
+            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
+
+
+            for k in sorted_nodes:
+                for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
+                    for i in range(self.N+2): # Parcours des ligne
+                        if self.matrice[i][j] != '*':
+                            if self.dates_au_plus_tard[i] >= 0:
+                                self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
+                            else :
+                                self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
         
         # Afficher les calendriers
         def afficher_calendriers(self):
-            f = open("./Traces/A5_trace_"+self.name+".txt", "a") 
+            f = open("./Traces/A5_trace_" + self.name + ".txt", "a")
             print("Dates- | ", end="")
             f.write("Dates- | ")
 
-            for j in range(self.N + 2):
+
+            # Trier les sommets par ordre croissant de rangs
+            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
+
+            for j in sorted_nodes:
                 if self.dates_au_plus_tot[j] < 10:
-                    print(" "+str(self.dates_au_plus_tot[j]) + "  | ", end="")
-                    f.write(" "+str(self.dates_au_plus_tot[j]) + "  | ")
+                    print(" " + str(self.dates_au_plus_tot[j]) + "  | ", end="")
+                    f.write(" " + str(self.dates_au_plus_tot[j]) + "  | ")
                 else:
                     print(str(self.dates_au_plus_tot[j]) + "  | ", end="")
                     f.write(str(self.dates_au_plus_tot[j]) + "  | ")
 
             print("\nDates+ | ", end="")
             f.write("\nDates+ | ")
-            for j in range(self.N + 2):
+            for j in sorted_nodes:
                 if self.dates_au_plus_tard[j] < 10:
-                    print(" "+str(self.dates_au_plus_tard[j]) + "  | ", end="")
-                    f.write(" "+str(self.dates_au_plus_tard[j]) + "  | ")
+                    print(" " + str(self.dates_au_plus_tard[j]) + "  | ", end="")
+                    f.write(" " + str(self.dates_au_plus_tard[j]) + "  | ")
                 else:
                     print(str(self.dates_au_plus_tard[j]) + "  | ", end="")
                     f.write(str(self.dates_au_plus_tard[j]) + "  | ")
             print()
             f.write("\n")
             f.close()
-
 
         def calcul_marge(self):
             # Calculer les marges
@@ -342,10 +358,13 @@ class Graphe:
 
         def afficher_marge(self):
             # Afficher les marges
-            f = open("./Traces/A5_trace_"+self.name+".txt", "a") 
+            f = open("./Traces/A5_trace_"+self.name+".txt", "a")
             print("\nMarge  | ", end="")
             f.write("\nMarge  | ")
-            for j in range(self.N + 2):
+
+            # Trier les sommets par ordre croissant de rangs
+            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
+            for j in sorted_nodes:
                 if self.marges[j] < 10:
                     print(" "+str(self.marges[j]) + "  | ", end="")
                     f.write(" "+str(self.marges[j]) + "  | ")
@@ -356,7 +375,7 @@ class Graphe:
             f.write("\n")
             f.close()
 
-        
+
         def trouver_chemins_critiques(self):
             # Calcul des chemins critique
             for i in range(len(self.marges)):
