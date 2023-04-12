@@ -288,9 +288,6 @@ class Graphe:
         # Calculer le calendrier au plus tôt
         def calculer_dates_au_plus_tot(self):
 
-            # Trier les sommets par ordre croissant de rangs
-            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
-
             # Calculer les dates au plus tôt en utilisant l'ordre des rangs
             
             for j in range(self.N + 2):
@@ -307,10 +304,6 @@ class Graphe:
 
             self.dates_au_plus_tard[self.N+1] = self.dates_au_plus_tot[self.N+1]
 
-            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
-
-
-            
             for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
                 for i in range(self.N+2): # Parcours des ligne
                     if self.matrice[i][j] != '*':
