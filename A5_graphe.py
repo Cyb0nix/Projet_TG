@@ -307,24 +307,7 @@ class Graphe:
 
             self.dates_au_plus_tard[self.N+1] = self.dates_au_plus_tot[self.N+1]
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
-
-
-            
->>>>>>> parent of 25a937f (ui)
-            for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
-                for i in range(self.N+2): # Parcours des ligne
-                    if self.matrice[i][j] != '*':
-                        if self.dates_au_plus_tard[i] >= 0:
-                            self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
-                        else :
-                            self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
-=======
-            sorted_nodes = sorted(range(self.N + 2), key=lambda x: self.rangs[x])
-
 
             for k in sorted_nodes:
                 for j in range(self.N+1, 0, -1): # Parcours des colonne en ordre inverse
@@ -334,7 +317,6 @@ class Graphe:
                                 self.dates_au_plus_tard[i] = min(self.dates_au_plus_tard[i], self.dates_au_plus_tard[j] - self.matrice[i][j])
                             else :
                                 self.dates_au_plus_tard[i] = self.dates_au_plus_tard[j] - self.matrice[i][j]
->>>>>>> parent of d502351 (fix calendrier)
         
         # Afficher les calendriers
         def afficher_calendriers(self):
