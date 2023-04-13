@@ -39,15 +39,15 @@ Matrice des valeurs
 14   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * 
 
 Suppresion du sommet :0
-Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+Sommets restants :1 2 3 4 5 6 7 8 9 10 11 12 13 14 
 Suppresion du sommet :1
-Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 12 
+Sommets restants :2 3 4 5 6 7 8 9 10 11 12 13 14 
 Suppresion du sommet :2
-Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 
+Sommets restants :3 4 5 6 7 8 9 10 11 12 13 14 
 Suppresion du sommet :3
-Sommets restants :0 1 2 3 4 5 6 7 8 9 10 
+Sommets restants :4 5 6 7 8 9 10 11 12 13 14 
 Suppresion du sommet :4
-Sommets restants :0 1 2 3 4 5 6 7 8 9 il n'y a plus de sommets sans predecesseur
+Sommets restants :5 6 7 8 9 10 11 12 13 14 il n'y a plus de sommets sans predecesseur
 * Détection de circuit
 * Méthode d’élimination des sommets sans prédécesseurs
 Le graphe contient un circuit.

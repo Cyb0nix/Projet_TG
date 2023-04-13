@@ -35,29 +35,29 @@ Matrice des valeurs
 12   *   *   *   *   *   *   *   *   *   *   *   *   * 
 
 Suppresion du sommet :0
-Sommets restants :0 1 2 3 4 5 6 7 8 9 10 11 
+Sommets restants :1 2 3 4 5 6 7 8 9 10 11 12 
 Suppresion du sommet :1
-Sommets restants :0 1 2 3 4 5 6 7 8 9 10 
+Sommets restants :2 3 4 5 6 7 8 9 10 11 12 
 Suppresion du sommet :2
-Sommets restants :0 1 2 3 4 5 6 7 8 9 
+Sommets restants :3 4 5 6 7 8 9 10 11 12 
 Suppresion du sommet :3
-Sommets restants :0 1 2 3 4 5 6 7 8 
+Sommets restants :4 5 6 7 8 9 10 11 12 
 Suppresion du sommet :4
-Sommets restants :0 1 2 3 4 5 6 7 
+Sommets restants :5 6 7 8 9 10 11 12 
 Suppresion du sommet :5
-Sommets restants :0 1 2 3 4 5 6 
+Sommets restants :6 7 8 9 10 11 12 
 Suppresion du sommet :6
-Sommets restants :0 1 2 3 4 5 
+Sommets restants :7 8 9 10 11 12 
 Suppresion du sommet :7
-Sommets restants :0 1 2 3 4 
+Sommets restants :8 9 10 11 12 
 Suppresion du sommet :8
-Sommets restants :0 1 2 3 
+Sommets restants :9 10 11 12 
 Suppresion du sommet :9
-Sommets restants :0 1 2 
+Sommets restants :10 11 12 
 Suppresion du sommet :10
-Sommets restants :0 1 
+Sommets restants :11 12 
 Suppresion du sommet :11
-Sommets restants :0 
+Sommets restants :12 
 Suppresion du sommet :12
 Sommets restants :* Détection de circuit
 * Méthode d’élimination des sommets sans prédécesseurs
